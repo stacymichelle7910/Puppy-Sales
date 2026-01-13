@@ -381,6 +381,58 @@
     .prev { left: 8px; }
     .next { right: 8px; }
 }
+
+/* Image slider – reusing most of your existing video slider styles */
+#imageSlider {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 14px;
+    margin: 1.3rem 0;
+    background: #000;
+}
+
+@media (min-aspect-ratio: 1/1) {
+    #imageSlider {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+#imageSlides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+#imageSlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Dots */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.slider-dot.active {
+    background: #8b6f47;
+    transform: scale(1.3);
+}
+
+/* Reuse your existing arrow styles – they match perfectly */
     </style>
 </head>
 <body>
@@ -401,13 +453,23 @@
             Tiny • Healthy • Vaccinated • With health guarantee
         </p>
 
-        <div class="slider">
+        <!-- Improved Image Slider -->
+        <div class="slider" id="imageSlider">
             <div class="slides" id="imageSlides">
                 <img src="KokoHuey's Little Poodle 0.jpeg" alt="Toy poodle puppy">
                 <img src="KokoHuey's Little Poodle 1.jpeg" alt="Toy poodle playing">
                 <img src="KokoHuey's Little Poodle 2.jpeg" alt="Toy poodle closeup">
+                <img src="KokoHuey's Little Poodle 3.jpeg" alt="Toy poodle closeup">
+                <!-- You had duplicates – keeping only unique ones is cleaner -->
             </div>
+
+            <!-- Navigation arrows (same style as video slider) -->
+            <button class="slider-arrow prev" onclick="prevImage()">❮</button>
+            <button class="slider-arrow next" onclick="nextImage()">❯</button>
         </div>
+
+        <!-- Optional: Dots / indicators -->
+        <div class="slider-dots" id="imageDots" style="text-align:center; margin-top:12px;"></div>
     </div>
 
     <div class="card">
@@ -671,6 +733,73 @@ document.querySelector('.next')?.addEventListener('click', stopAutoPlay);
 // Start everything
 goVideo(0);           // show & play first video
 startAutoPlay();      // begin auto sliding
+
+// ────────────────────────────────────────────────
+// Image Slider Logic
+// ────────────────────────────────────────────────
+let imgIndex = 0;
+const imgContainer = document.getElementById("imageSlides");
+const imgDotsContainer = document.getElementById("imageDots");
+let imgAutoInterval = null;
+
+// Create dots dynamically
+function createImageDots() {
+    const totalImages = imgContainer.children.length;
+    imgDotsContainer.innerHTML = "";
+    for (let i = 0; i < totalImages; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("slider-dot");
+        dot.onclick = () => {
+            stopImageAutoPlay();
+            goImage(i);
+        };
+        imgDotsContainer.appendChild(dot);
+    }
+    updateDots();
+}
+
+function updateDots() {
+    const dots = document.querySelectorAll(".slider-dot");
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === imgIndex);
+    });
+}
+
+function goImage(index) {
+    imgIndex = (index + imgContainer.children.length) % imgContainer.children.length;
+    imgContainer.style.transform = `translateX(-${imgIndex * 100}%)`;
+    updateDots();
+}
+
+function nextImage() {
+    goImage(imgIndex + 1);
+}
+
+function prevImage() {
+    goImage(imgIndex - 1);
+}
+
+function startImageAutoPlay() {
+    imgAutoInterval = setInterval(nextImage, 5000); // change every 5 seconds
+}
+
+function stopImageAutoPlay() {
+    if (imgAutoInterval) {
+        clearInterval(imgAutoInterval);
+        imgAutoInterval = null;
+    }
+}
+
+// Initialize
+if (imgContainer) {
+    createImageDots();
+    goImage(0);              // show first image
+    startImageAutoPlay();    // start auto sliding
+}
+
+// Pause on hover (optional – nice UX)
+document.getElementById("imageSlider")?.addEventListener("mouseenter", stopImageAutoPlay);
+document.getElementById("imageSlider")?.addEventListener("mouseleave", startImageAutoPlay);
 </script>
 
 </body>
