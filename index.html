@@ -3,18 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Toy Poodle Puppy – KokoHuey</title>
-
+    <title>Elite Pups – Adoption & Responsible Placement</title>
+    <link rel="icon" href="https://freepngimg.com/download/dog/163170-photos-puppy-dog-face-png-image-high-quality.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.11.1/sql-wasm.min.js"></script>
-
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: "Poppins", system-ui, -apple-system, sans-serif;
             background: #f9f7f3;
@@ -22,540 +15,203 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-
-        body.dark {
-            background: #141414;
-            color: #e5e0d8;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
-
+        body.dark { background: #141414; color: #e5e0d8; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
         header {
-            background: linear-gradient(135deg, #8b6f47 0%, #a68a5e 100%);
+            background: linear-gradient(135deg, #4a6c9b 0%, #6b8cc4 100%);
             color: white;
             padding: 1.3rem 0;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0,0,0,0.25);
         }
-
-        header h1 {
-            font-size: clamp(1.8rem, 6.5vw, 2.3rem);
-            font-weight: 600;
-        }
-
+        header h1 { font-size: clamp(1.8rem, 6.5vw, 2.3rem); font-weight: 600; }
+        .logo { max-width: 220px; margin-bottom: 12px; }
         .dark-toggle {
-            position: fixed;
-            top: 12px;
-            right: 12px;
-            z-index: 1000;
-            background: rgba(255,255,255,0.97);
-            color: #5c4328;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 50px;
-            font-size: 0.92rem;
-            font-weight: 600;
+            position: fixed; top: 12px; right: 12px; z-index: 1000;
+            background: rgba(255,255,255,0.97); color: #2c4a7c;
+            border: none; padding: 10px 14px; border-radius: 50px;
+            font-size: 0.92rem; font-weight: 600;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-
-        body.dark .dark-toggle {
-            background: #383838;
-            color: #f0e6d2;
-        }
-
+        body.dark .dark-toggle { background: #383838; color: #d0e0ff; }
         .card {
-            background: white;
-            border-radius: 16px;
-            padding: clamp(18px, 4.5vw, 26px);
-            margin: 20px 0;
+            background: white; border-radius: 16px;
+            padding: clamp(18px, 4.5vw, 26px); margin: 20px 0;
             box-shadow: 0 5px 18px rgba(0,0,0,0.09);
         }
-
-        body.dark .card {
-            background: #222;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.5);
-        }
-
-        h2 {
-            color: #7a5933;
-            font-size: clamp(1.4rem, 4.8vw, 1.7rem);
-            margin-bottom: 1.1rem;
-            font-weight: 600;
-        }
-        body.dark h2 { color: #d5b08a; }
-
+        body.dark .card { background: #222; box-shadow: 0 5px 18px rgba(0,0,0,0.5); }
+        h2 { color: #2c4a7c; font-size: clamp(1.4rem, 4.8vw, 1.7rem); margin-bottom: 1.1rem; font-weight: 600; }
+        body.dark h2 { color: #a8c0ff; }
         .price {
-            text-align: center;
-            font-size: clamp(2.6rem, 9vw, 3.6rem);
-            font-weight: 700;
-            color: #d35400;
-            margin: 0.8rem 0 1.3rem;
+            text-align: center; font-size: clamp(2.4rem, 8vw, 3.2rem);
+            font-weight: 700; color: #2c7a4e; margin: 0.8rem 0 1.3rem;
         }
-
-        /* Media sliders */
-        .slider, .video-slider {
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            border-radius: 14px;
-            margin: 1.3rem 0;
-            background: #000;
+        .slider {
+            aspect-ratio: 4 / 3; overflow: hidden; border-radius: 14px;
+            margin: 1.3rem 0; background: #000; position: relative;
         }
-
-        @media (min-aspect-ratio: 1/1) {
-            .slider, .video-slider { aspect-ratio: 16 / 9; }
+        @media (min-aspect-ratio: 1/1) { .slider { aspect-ratio: 16 / 9; } }
+        .slides { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1); }
+        .slides img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+        .slider-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 48px; height: 48px; background: rgba(0,0,0,0.55); color: white;
+            border: none; border-radius: 50%; font-size: 1.8rem; cursor: pointer;
+            opacity: 0.8; transition: all 0.2s; z-index: 10;
         }
-
-        .slides, .video-slides {
-            display: flex;
-            height: 100%;
+        .slider-arrow:hover, .slider-arrow:active { opacity: 1; background: rgba(0,0,0,0.8); }
+        .prev { left: 12px; } .next { right: 12px; }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
+        .slider-dot {
+            width: 10px; height: 10px; background: rgba(255,255,255,0.5);
+            border-radius: 50%; cursor: pointer; transition: all 0.25s;
         }
-
-        .slides img, .video-slides video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            flex-shrink: 0;
+        .slider-dot.active { background: #2c7a4e; transform: scale(1.3); }
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 14px 16px; margin: 12px 0;
+            border: 1px solid #d0d8e5; border-radius: 12px; font-size: 1rem; background: white;
         }
-
-        .video-thumbs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 14px;
+        body.dark .contact-form input, body.dark .contact-form textarea {
+            background: #2a2a2a; color: #eee; border-color: #555;
         }
-
-        .video-thumbs img {
-            width: 78px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.78;
-            transition: 0.2s;
-        }
-
-        .video-thumbs img.active,
-        .video-thumbs img:active {
-            opacity: 1;
-            transform: scale(1.08);
-            outline: 3px solid #8b6f47;
-        }
-
-        /* Contact Form */
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 16px;
-            margin: 12px 0;
-            border: 1px solid #d0c5b5;
-            border-radius: 12px;
-            font-size: 1rem;
-            background: white;
-        }
-
-        body.dark .contact-form input,
-        body.dark .contact-form textarea {
-            background: #2a2a2a;
-            color: #eee;
-            border-color: #555;
-        }
-
         .contact-form button {
-            width: 100%;
-            padding: 16px;
-            background: #7a5933;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            min-height: 54px;
+            width: 100%; padding: 16px; background: #2c4a7c; color: white;
+            border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600;
+            cursor: pointer; min-height: 54px;
         }
-
-        .contact-form button:active {
-            background: #8f6c44;
-        }
-
-        /* Zelle box */
-        .zelle-box {
-            background: #eef4ff;
-            border-left: 5px solid #5b7cfa;
-            padding: 18px;
-            border-radius: 14px;
-        }
-
-        body.dark .zelle-box {
-            background: #1e2a44;
-            border-left-color: #7a9aff;
-        }
-
-        /* Proof upload */
-        input[type="file"] {
-            padding: 10px 0;
-        }
-
-        .file-preview img {
-            max-width: 100%;
-            max-height: 260px;
-            border-radius: 12px;
-            margin: 1rem auto;
-            display: block;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: #7a5933;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            min-height: 54px;
-            margin: 1rem 0 0.6rem;
-        }
-
-        .submit-btn:active { background: #8f6c44; }
-
-        #status {
-            text-align: center;
-            font-weight: 600;
-            min-height: 1.5em;
-            margin-top: 0.8rem;
-        }
-
-        /* Floating buttons - improved mobile spacing & size */
+        .contact-form button:active { background: #3a5a9c; }
         .float-wrap {
-            position: fixed;
-            right: 14px;
-            bottom: 14px;
-            z-index: 900;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+            position: fixed; right: 14px; bottom: 14px; z-index: 900;
+            display: flex; flex-direction: column; gap: 18px;
         }
-
         .float-btn {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.38);
-            transition: transform 0.15s;
+            width: 64px; height: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.38); transition: transform 0.15s;
         }
-
-        .float-btn:active {
-            transform: scale(0.93);
-        }
-
+        .float-btn:active { transform: scale(0.93); }
         .whatsapp { background: #25d366; }
         .telegram { background: #0088cc; }
-        .email    { background: #d44638; }
-
-        .float-btn img {
-            width: 38px;
-        }
-
+        .email { background: #d44638; }
+        .float-btn img { width: 38px; }
         footer {
-            background: #231a0f;
-            color: #c9b38a;
-            text-align: center;
-            padding: 2.2rem 1rem;
-            margin-top: 50px;
-            font-size: 0.92rem;
+            background: #1a2a4a; color: #c0d4ff;
+            text-align: center; padding: 2.2rem 1rem; margin-top: 50px; font-size: 0.92rem;
         }
-
-        footer a {
-            color: #d5b08a;
-            text-decoration: none;
-        }
-
-        /* Mobile optimizations */
+        footer a { color: #a8c0ff; text-decoration: none; }
         @media (max-width: 600px) {
             .container { padding: 0 14px; }
             .card { padding: 18px; margin: 16px 0; }
-            .price { font-size: 2.9rem; }
-            .video-thumbs img { width: 68px; height: 42px; }
+            .price { font-size: 2.7rem; }
             .float-wrap { right: 12px; bottom: 12px; gap: 16px; }
             .float-btn { width: 60px; height: 60px; }
             .float-btn img { width: 34px; }
+            .slider-arrow { width: 44px; height: 44px; font-size: 1.5rem; }
+            .prev { left: 8px; } .next { right: 8px; }
         }
-
-        .video-slider {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border-radius: 14px;
-    margin: 1.3rem 0;
-    background: #111;
-    touch-action: pan-y;
-}
-
-.video-slides {
-    display: flex;
-    height: 100%;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.video-slides video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-/* Navigation arrows */
-.slider-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: rgba(0,0,0,0.55);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.8rem;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: all 0.2s;
-    z-index: 10;
-}
-
-.slider-arrow:hover,
-.slider-arrow:active {
-    opacity: 1;
-    background: rgba(0,0,0,0.8);
-}
-
-.prev { left: 12px; }
-.next { right: 12px; }
-
-/* Thumbnails */
-.video-thumbs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 16px;
-}
-
-.video-thumbs img {
-    width: 90px;
-    height: 56px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    opacity: 0.75;
-    transition: all 0.25s ease;
-}
-
-.video-thumbs img.active,
-.video-thumbs img:hover {
-    opacity: 1;
-    transform: scale(1.08);
-    outline: 3px solid #8b6f47;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-    .video-thumbs img {
-        width: 72px;
-        height: 45px;
-    }
-    .slider-arrow {
-        width: 44px;
-        height: 44px;
-        font-size: 1.5rem;
-    }
-    .prev { left: 8px; }
-    .next { right: 8px; }
-}
-
-/* Image slider – reusing most of your existing video slider styles */
-#imageSlider {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border-radius: 14px;
-    margin: 1.3rem 0;
-    background: #000;
-}
-
-@media (min-aspect-ratio: 1/1) {
-    #imageSlider {
-        aspect-ratio: 16 / 9;
-    }
-}
-
-#imageSlides {
-    display: flex;
-    height: 100%;
-    transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-#imageSlides img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-/* Dots */
-.slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    background: rgba(255,255,255,0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.25s;
-}
-
-.slider-dot.active {
-    background: #8b6f47;
-    transform: scale(1.3);
-}
-
-/* Reuse your existing arrow styles – they match perfectly */
     </style>
 </head>
 <body>
-
 <button class="dark-toggle" onclick="document.body.classList.toggle('dark')">Dark Mode</button>
-
 <header>
     <div class="container">
-        <h1>Adorable KokoHuey Toy Poodle Puppy</h1>
+        <img src="https://images.vexels.com/media/users/3/266217/raw/8047a986ac1cade599b35b3997ef0c70-dog-breeding-logo-template.jpg" alt="Elite Pups Logo" class="logo">
+        <h1>Find Your Forever Friend</h1>
+        <p style="font-size:1.1rem; opacity:0.95;">Adoption • Ethical Puppies • Health Guarantee</p>
     </div>
 </header>
-
 <div class="container">
 
+    <!-- Labrador -->
     <div class="card">
-        <div class="price">$1,200</div>
+        <h2>Labrador Retriever Puppy</h2>
+        <div class="price">$1,200 Adoption Fee</div>
         <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-            Tiny • Healthy • Vaccinated • With health guarantee
+            Friendly • Family-oriented • Vaccinated • Vet-checked • 1-year health guarantee
         </p>
-
-        <!-- Improved Image Slider -->
-        <div class="slider" id="imageSlider">
-            <div class="slides" id="imageSlides">
-                <img src="KokoHuey's Little Poodle 0.jpeg" alt="Toy poodle puppy">
-                <img src="KokoHuey's Little Poodle 1.jpeg" alt="Toy poodle playing">
-                <img src="KokoHuey's Little Poodle 2.jpeg" alt="Toy poodle closeup">
-                <img src="KokoHuey's Little Poodle 3.jpeg" alt="Toy poodle closeup">
-                <!-- You had duplicates – keeping only unique ones is cleaner -->
+        <div class="slider" id="slider1">
+            <div class="slides" id="slides1">
+                <img src="https://www.silverandcharcoalkennels.com/wp-content/uploads/2021/02/IMG_8514-scaled.jpg" alt="Labrador puppy">
+                <img src="https://hiddenpondlabradors.com/wp-content/uploads/2015/10/2015831puppiesfinal1.jpg" alt="Labrador puppies">
+                <img src="https://consumer-cms.petfinder.com/sites/default/files/images/content/Labrador%20Retriever%20%202_0.jpg" alt="Happy Labrador">
+                <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.nevadalabradors.com/wp-content/uploads/2021/09/Lab-Breeders-Near-Me-San-Jose-CA.jpg" alt="Labrador playing">
             </div>
-
-            <!-- Navigation arrows (same style as video slider) -->
-            <button class="slider-arrow prev" onclick="prevImage()">❮</button>
-            <button class="slider-arrow next" onclick="nextImage()">❯</button>
+            <button class="slider-arrow prev" onclick="prevSlide(1)">❮</button>
+            <button class="slider-arrow next" onclick="nextSlide(1)">❯</button>
         </div>
-
-        <!-- Optional: Dots / indicators -->
-        <div class="slider-dots" id="imageDots" style="text-align:center; margin-top:12px;"></div>
+        <div class="slider-dots" id="dots1"></div>
     </div>
 
+    <!-- French Bulldog -->
     <div class="card">
-    <h2>Puppy Videos</h2>
-
-    <div class="video-slider">
-        <!-- Slides container -->
-        <div class="video-slides" id="videoSlides">
-            <video src="KokoHuey's Little Poodle 4.mp4" muted loop playsinline preload="metadata"></video>
-            <video src="KokoHuey's Little Poodle 5.mp4" muted loop playsinline preload="metadata"></video>
-            <video src="KokoHuey's Little Poodle 6.mp4" muted loop playsinline preload="metadata"></video>
-            <video src="KokoHuey's Little Poodle 7.mp4" muted loop playsinline preload="metadata"></video>
-            <video src="KokoHuey's Little Poodle 8.mp4" muted loop playsinline preload="metadata"></video>
-            <video src="KokoHuey's Little Poodle 9.mp4" muted loop playsinline preload="metadata"></video>
+        <h2>French Bulldog Puppy</h2>
+        <div class="price">$2,500 Adoption Fee</div>
+        <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
+            Charming • Low-energy • Vaccinated • Vet-checked • 1-year health guarantee
+        </p>
+        <div class="slider" id="slider2">
+            <div class="slides" id="slides2">
+                <img src="https://tomkingskennel.com/wp-content/uploads/2022/05/black-frenchie-tomkings-puppies.jpg" alt="Frenchie puppy">
+                <img src="https://poeticfrenchbulldogs.com/wp-content/uploads/2020/01/PFB-hero-1024x678.jpg" alt="French Bulldog">
+                <img src="https://tomkingskennel.com/wp-content/uploads/2022/08/denise-tomkings-puppies-5-1.jpg.webp" alt="Cute Frenchie">
+                <img src="https://tomkingskennel.com/wp-content/uploads/2020/04/red-pied-french-bulldog-tomkings-puppies-5.jpg" alt="French Bulldog closeup">
+            </div>
+            <button class="slider-arrow prev" onclick="prevSlide(2)">❮</button>
+            <button class="slider-arrow next" onclick="nextSlide(2)">❯</button>
         </div>
-
-        <!-- Navigation arrows -->
-        <button class="slider-arrow prev" onclick="prevVideo()">❮</button>
-        <button class="slider-arrow next" onclick="nextVideo()">❯</button>
+        <div class="slider-dots" id="dots2"></div>
     </div>
 
-    <!-- Thumbnails -->
-    <div class="video-thumbs">
-        <img src="https://media.istockphoto.com/id/1210349925/photo/a-cute-toy-poodle-looking-at-camera-smiling.jpg?s=612x612&w=0&k=20&c=fb4jCezaEsWB5rEN969Cc0Q6Vw-c6gI8kbgVyqq6sGI=" 
-             class="active" 
-             onclick="goVideo(0)" 
-             alt="Happy white toy poodle">
-
-        <img src="https://thumbs.dreamstime.com/b/beautiful-toy-poodle-looking-camera-having-fun-green-lawn-portrait-happy-young-puppy-shot-sunny-day-outdoors-341288439.jpg" 
-             onclick="goVideo(1)" 
-             alt="Toy poodle playing outdoors">
-
-        <img src="https://www.shutterstock.com/shutterstock/photos/2667993879/display_1500/stock-photo-red-toy-poodle-puppy-sitting-on-green-grass-fluffy-cute-dog-looks-at-the-camera-domestic-pets-2667993879.jpg" 
-             onclick="goVideo(2)" 
-             alt="Red toy poodle on grass">
-
-        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400" 
-             onclick="goVideo(4)" 
-             alt="Playful toy poodle">
-
-        <img src="https://images.unsplash.com/photo-1620421680010-0766ff230392?w=400" 
-             onclick="goVideo(5)" 
-             alt="Fluffy poodle close-up">
-    </div>
-</div>
-
-    <div class="card zelle-box">
-        <h2>Reservation Process</h2>
-        <p><strong>$300 deposit</strong> via Zelle to reserve your puppy.</p>
-        <p style="margin:1rem 0;">Balance paid on pickup or delivery.</p>
-        <div style="text-align:center; margin-top:1.2rem;">
-            <code style="background:#5b7cfa; color:white; padding:12px 18px; border-radius:10px; font-size:1.05rem;">
-                Contact for Zelle details
-            </code>
+    <!-- Golden Retriever -->
+    <div class="card">
+        <h2>Golden Retriever Puppy</h2>
+        <div class="price">$1,500 Adoption Fee</div>
+        <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
+            Gentle • Loyal • Vaccinated • Vet-checked • 1-year health guarantee
+        </p>
+        <div class="slider" id="slider3">
+            <div class="slides" id="slides3">
+                <img src="https://cdn.akc.org/Marketplace/Breeds/Golden_Retriever_SERP.jpg" alt="Golden Retriever puppy">
+                <img src="https://petcenternj.com/wp-content/uploads/2017/03/olden-retriever-puppies-for-sale.jpg" alt="Golden puppies">
+                <img src="https://i.pinimg.com/originals/f5/90/4c/f5904cade46d64d64b03c33bc0cb096b.jpg" alt="Golden playing">
+            </div>
+            <button class="slider-arrow prev" onclick="prevSlide(3)">❮</button>
+            <button class="slider-arrow next" onclick="nextSlide(3)">❯</button>
         </div>
+        <div class="slider-dots" id="dots3"></div>
     </div>
 
-    <!-- Contact Form -->
+    <!-- German Shepherd -->
+    <div class="card">
+        <h2>German Shepherd Puppy</h2>
+        <div class="price">$1,800 Adoption Fee</div>
+        <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
+            Intelligent • Protective • Vaccinated • Vet-checked • 1-year health guarantee
+        </p>
+        <div class="slider" id="slider4">
+            <div class="slides" id="slides4">
+                <img src="https://cdn.akc.org/Marketplace/Breeds/German_Shepherd_Dog_SERP.jpg" alt="German Shepherd puppy">
+                <img src="https://heritagehillsgermanshepherds.com/wp-content/uploads/2021/12/Legacys-Pups.5.jpg" alt="GSD puppies">
+                <img src="https://topshepherd.com/images/banner-img02.jpg" alt="German Shepherd">
+            </div>
+            <button class="slider-arrow prev" onclick="prevSlide(4)">❮</button>
+            <button class="slider-arrow next" onclick="nextSlide(4)">❯</button>
+        </div>
+        <div class="slider-dots" id="dots4"></div>
+    </div>
+
     <div class="card contact-form">
-        <h2>Send Message to Seller</h2>
-        <form action="mailto:stacymichelle791@gmail.com" method="post" enctype="text/plain">
+        <h2>Get in Touch</h2>
+        <form action="mailto:contact@elitepupsadoption.com" method="post" enctype="text/plain">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="I'm interested in the puppy... Tell me more!" required></textarea>
-            <button type="submit">Send Email</button>
+            <textarea name="message" rows="5" placeholder="Hi! I'm interested in adopting... Which puppy would suit my family? Tell me more about availability, location, and next steps." required></textarea>
+            <button type="submit">Send Message</button>
         </form>
     </div>
 
-    <!-- Deposit Proof Upload -->
-    <div class="card">
-        <h2>Submit $300 Deposit Proof</h2>
-        <p>Upload screenshot after sending Zelle payment:</p>
-
-        <input type="text" id="buyerName" placeholder="Your Full Name" required>
-        <input type="file" id="proofUpload" accept="image/*">
-
-        <div class="file-preview" id="previewContainer"></div>
-
-        <button class="submit-btn" onclick="submitProof()">Submit & Open WhatsApp</button>
-
-        <p id="status"></p>
-    </div>
-
 </div>
 
-<!-- Floating contact buttons -->
 <div class="float-wrap">
     <a class="float-btn whatsapp" href="https://wa.me/18648513830" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
@@ -563,244 +219,70 @@
     <a class="float-btn telegram" href="https://t.me/Poppytradehub" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
     </a>
-    <a class="float-btn email" href="mailto:stacymichelle791@gmail.com">
+    <a class="float-btn email" href="mailto:contact@elitepupsadoption.com">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email">
     </a>
 </div>
 
 <footer>
-    <p>KokoHuey's Tiny Poodles • All puppies come with health guarantee</p>
+    <p>Elite Pups Adoption & Responsible Placement • Every pup deserves a loving home</p>
     <p style="margin-top:0.9rem;">
         WhatsApp: <a href="https://wa.me/18648513830">+1 (864) 851-3830</a><br>
         Telegram: <a href="https://t.me/Poppytradehub">@Poppytradehub</a><br>
-        Email: <a href="mailto:stacymichelle791@gmail.com">stacymichelle791@gmail.com</a>
+        Email: <a href="mailto:contact@elitepupsadoption.com">contact@elitepupsadoption.com</a>
     </p>
 </footer>
 
 <script>
-// Video slider
-let vidIndex = 0;
-const videoContainer = document.getElementById("videoSlides");
-const thumbs = document.querySelectorAll(".video-thumbs img");
-
-function goVideo(i) {
-    document.querySelectorAll("#videoSlides video").forEach(v => {
-        v.pause();
-        v.currentTime = 0;
-    });
-    vidIndex = i;
-    videoContainer.style.transform = `translateX(-${i * 100}%)`;
-    thumbs.forEach(t => t.classList.remove("active"));
-    thumbs[i]?.classList.add("active");
-    videoContainer.children[i]?.play().catch(()=>{});
-}
-
-setInterval(() => {
-    vidIndex = (vidIndex + 1) % videoContainer.children.length;
-    goVideo(vidIndex);
-}, 8000);
-
-// SQLite local storage for proofs
-let SQL = null, db = null;
-const CACHE_NAME = "puppy-sqlite-v1";
-const DB_FILE = "/puppy_proofs.sqlite";
-
-async function initDb() {
-    if (db) return;
-    try {
-        SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.11.1/${f}` });
-        const cache = await caches.open(CACHE_NAME);
-        const resp = await cache.match(DB_FILE);
-        if (resp) {
-            db = new SQL.Database(new Uint8Array(await resp.arrayBuffer()));
-        } else {
-            db = new SQL.Database();
-            db.run(`CREATE TABLE proofs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, timestamp TEXT, image_base64 TEXT)`);
-            await saveDb();
-        }
-    } catch(e) { console.error("DB init failed", e); }
-}
-
-async function saveDb() {
-    if (!db) return;
-    const data = db.export();
-    const cache = await caches.open(CACHE_NAME);
-    await cache.put(DB_FILE, new Response(new Blob([data])));
-}
-
-async function submitProof() {
-    const name = document.getElementById("buyerName").value.trim();
-    const fileInput = document.getElementById("proofUpload");
-    const status = document.getElementById("status");
-
-    if (!name) return statusMsg("Please enter your name", "red");
-    if (!fileInput.files[0]) return statusMsg("Please select proof image", "red");
-
-    statusMsg("Processing...", "#7a5933");
-
-    const reader = new FileReader();
-    reader.onload = async e => {
-        document.getElementById("previewContainer").innerHTML = `<img src="${e.target.result}" alt="Proof">`;
-
-        try {
-            await initDb();
-            if (!db) throw new Error("DB not ready");
-
-            const base64 = e.target.result.split(',')[1];
-            const ts = new Date().toISOString();
-
-            db.run("INSERT INTO proofs (name, timestamp, image_base64) VALUES (?,?,?)", [name, ts, base64]);
-            await saveDb();
-
-            const msg = `New Deposit Proof\n\nName: ${name}\nAmount: $300 Zelle\nDate: ${ts}\n\nProof image:\n${e.target.result}`;
-            window.open(`https://wa.me/18648513830?text=${encodeURIComponent(msg)}`, '_blank');
-
-            statusMsg("Proof saved! WhatsApp opened → please send", "green");
-        } catch (err) {
-            statusMsg("Error: " + err.message, "red");
-        }
-    };
-    reader.readAsDataURL(fileInput.files[0]);
-}
-
-function statusMsg(text, color) {
-    const el = document.getElementById("status");
-    el.textContent = text;
-    el.style.color = color;
-}
-
-// Init DB on load
-window.addEventListener("load", initDb);
-
-// Video Slider Logic
-let currentIndex = 0;
-let autoInterval = null;
-const allVideos = videoContainer.querySelectorAll('video');
-const thumbnails = document.querySelectorAll('.video-thumbs img');
-const total = allVideos.length;
-
-function goVideo(index) {
-    // Stop all videos
-    allVideos.forEach(v => {
-        v.pause();
-        v.currentTime = 0;
-    });
-
-    currentIndex = (index + total) % total; // handle negative values
-
-    // Move slider
-    videoContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-    // Update thumbnails
-    thumbnails.forEach(t => t.classList.remove('active'));
-    thumbnails[currentIndex]?.classList.add('active');
-
-    // Play current video
-    allVideos[currentIndex]?.play().catch(() => {});
-}
-
-function nextVideo() {
-    goVideo(currentIndex + 1);
-}
-
-function prevVideo() {
-    goVideo(currentIndex - 1);
-}
-
-// Auto play
-function startAutoPlay() {
-    autoInterval = setInterval(nextVideo, 7000);
-}
-
-function stopAutoPlay() {
-    if (autoInterval) {
-        clearInterval(autoInterval);
-        autoInterval = null;
+// Slider Logic
+class Slider {
+    constructor(id) {
+        this.index = 0;
+        this.container = document.getElementById(`slides${id}`);
+        this.dotsContainer = document.getElementById(`dots${id}`);
+        this.total = this.container.children.length;
+        this.autoInterval = null;
+        this.createDots();
+        this.goTo(0);
+        this.startAutoPlay();
+        const sliderElem = document.getElementById(`slider${id}`);
+        sliderElem?.addEventListener("mouseenter", () => this.stopAutoPlay());
+        sliderElem?.addEventListener("mouseleave", () => this.startAutoPlay());
     }
+    createDots() {
+        this.dotsContainer.innerHTML = "";
+        for (let i = 0; i < this.total; i++) {
+            const dot = document.createElement("span");
+            dot.classList.add("slider-dot");
+            dot.onclick = () => { this.stopAutoPlay(); this.goTo(i); };
+            this.dotsContainer.appendChild(dot);
+        }
+        this.updateDots();
+    }
+    updateDots() {
+        const dots = this.dotsContainer.querySelectorAll(".slider-dot");
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === this.index));
+    }
+    goTo(index) {
+        this.index = (index + this.total) % this.total;
+        this.container.style.transform = `translateX(-${this.index * 100}%)`;
+        this.updateDots();
+    }
+    next() { this.goTo(this.index + 1); }
+    prev() { this.goTo(this.index - 1); }
+    startAutoPlay() { this.autoInterval = setInterval(() => this.next(), 5000); }
+    stopAutoPlay() { if (this.autoInterval) { clearInterval(this.autoInterval); this.autoInterval = null; } }
 }
+function nextSlide(id) { sliders[id - 1]?.stopAutoPlay(); sliders[id - 1]?.next(); }
+function prevSlide(id) { sliders[id - 1]?.stopAutoPlay(); sliders[id - 1]?.prev(); }
 
-// Event listeners
-thumbnails.forEach((thumb, i) => {
-    thumb.addEventListener('click', () => {
-        stopAutoPlay();
-        goVideo(i);
-    });
+const sliders = [];
+window.addEventListener("load", () => {
+    sliders.push(new Slider(1));
+    sliders.push(new Slider(2));
+    sliders.push(new Slider(3));
+    sliders.push(new Slider(4));
 });
-
-document.querySelector('.prev')?.addEventListener('click', stopAutoPlay);
-document.querySelector('.next')?.addEventListener('click', stopAutoPlay);
-
-// Start everything
-goVideo(0);           // show & play first video
-startAutoPlay();      // begin auto sliding
-
-// ────────────────────────────────────────────────
-// Image Slider Logic
-// ────────────────────────────────────────────────
-let imgIndex = 0;
-const imgContainer = document.getElementById("imageSlides");
-const imgDotsContainer = document.getElementById("imageDots");
-let imgAutoInterval = null;
-
-// Create dots dynamically
-function createImageDots() {
-    const totalImages = imgContainer.children.length;
-    imgDotsContainer.innerHTML = "";
-    for (let i = 0; i < totalImages; i++) {
-        const dot = document.createElement("span");
-        dot.classList.add("slider-dot");
-        dot.onclick = () => {
-            stopImageAutoPlay();
-            goImage(i);
-        };
-        imgDotsContainer.appendChild(dot);
-    }
-    updateDots();
-}
-
-function updateDots() {
-    const dots = document.querySelectorAll(".slider-dot");
-    dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === imgIndex);
-    });
-}
-
-function goImage(index) {
-    imgIndex = (index + imgContainer.children.length) % imgContainer.children.length;
-    imgContainer.style.transform = `translateX(-${imgIndex * 100}%)`;
-    updateDots();
-}
-
-function nextImage() {
-    goImage(imgIndex + 1);
-}
-
-function prevImage() {
-    goImage(imgIndex - 1);
-}
-
-function startImageAutoPlay() {
-    imgAutoInterval = setInterval(nextImage, 5000); // change every 5 seconds
-}
-
-function stopImageAutoPlay() {
-    if (imgAutoInterval) {
-        clearInterval(imgAutoInterval);
-        imgAutoInterval = null;
-    }
-}
-
-// Initialize
-if (imgContainer) {
-    createImageDots();
-    goImage(0);              // show first image
-    startImageAutoPlay();    // start auto sliding
-}
-
-// Pause on hover (optional – nice UX)
-document.getElementById("imageSlider")?.addEventListener("mouseenter", stopImageAutoPlay);
-document.getElementById("imageSlider")?.addEventListener("mouseleave", startImageAutoPlay);
 </script>
-
 </body>
 </html>
