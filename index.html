@@ -3,596 +3,531 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Elite Pups – Sales & Adoption</title>
-    <link rel="icon" href="https://freepngimg.com/download/dog/163170-photos-puppy-dog-face-png-image-high-quality.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Elite Pups · Purrs · Wings – Sales & Adoption</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1998/1998627.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: "Poppins", system-ui, -apple-system, sans-serif;
-            background: #f9f7f3;
-            color: #2f2a24;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            font-family: "Inter", system-ui, sans-serif;
+            background: #faf8f4; color: #1e2b2f;
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
         }
-        body.dark { background: #141414; color: #e5e0d8; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+        body.dark { background: #121212; color: #e2e1dd; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
         header {
-            background: linear-gradient(135deg, #4a6c9b 0%, #6b8cc4 100%);
-            color: white;
-            padding: 1.3rem 0;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            background: linear-gradient(145deg, #1d3b5c 0%, #2b5b8b 100%);
+            color: white; padding: 2rem 0; text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
-        header h1 { font-size: clamp(1.8rem, 6.5vw, 2.3rem); font-weight: 600; }
-        .logo { max-width: 220px; margin-bottom: 12px; }
+        .logo-area { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .logo { width: 80px; height: 80px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; }
+        h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 700; margin: 0.4rem 0; }
+        header p { font-size: 1.15rem; opacity: 0.92; }
         .dark-toggle {
-            position: fixed; top: 12px; right: 12px; z-index: 1000;
-            background: rgba(255,255,255,0.97); color: #2c4a7c;
-            border: none; padding: 10px 14px; border-radius: 50px;
-            font-size: 0.92rem; font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            position: fixed; top: 16px; right: 16px; z-index: 1000;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.4); color: white;
+            padding: 10px 18px; border-radius: 50px; font-weight: 600;
+            cursor: pointer; transition: all 0.25s;
         }
-        body.dark .dark-toggle { background: #383838; color: #d0e0ff; }
-
+        body.dark .dark-toggle { background: rgba(30,30,40,0.8); border-color: #666; }
         .tabs {
-            display: flex;
-            justify-content: center;
-            margin: 1.5rem 0;
-            border-bottom: 2px solid #d0d8e5;
+            display: flex; justify-content: center; gap: 12px;
+            margin: 2.5rem 0 2rem; flex-wrap: wrap;
         }
-        .tab-button {
-            padding: 14px 32px;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #555;
-            cursor: pointer;
+        .tab-btn {
+            padding: 14px 40px; font-size: 1.15rem; font-weight: 600;
+            border: none; border-radius: 50px; cursor: pointer;
+            background: rgba(200,210,220,0.25); color: #444;
             transition: all 0.3s;
         }
-        .tab-button:hover { color: #2c4a7c; }
-        .tab-button.active {
-            color: #2c4a7c;
-            border-bottom: 4px solid #2c7a4e;
+        body.dark .tab-btn { background: #1f262e; color: #c0d0e0; }
+        .tab-btn.active {
+            background: #1d3b5c; color: white; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
-        body.dark .tabs { border-bottom-color: #555; }
-        body.dark .tab-button { color: #aaa; }
-        body.dark .tab-button:hover, body.dark .tab-button.active { color: #a8c0ff; }
-        body.dark .tab-button.active { border-bottom-color: #66bb6a; }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
+        body.dark .tab-btn.active { background: #316794; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
         .card {
-            background: white; border-radius: 16px;
-            padding: clamp(18px, 4.5vw, 26px); margin: 20px 0;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.09);
+            background: white; border-radius: 24px; padding: 28px;
+            margin: 24px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        body.dark .card { background: #222; box-shadow: 0 5px 18px rgba(0,0,0,0.5); }
-        h2 { color: #2c4a7c; font-size: clamp(1.4rem, 4.8vw, 1.7rem); margin-bottom: 1.1rem; font-weight: 600; }
-        body.dark h2 { color: #a8c0ff; }
-        .price {
-            text-align: center; font-size: clamp(2.4rem, 8vw, 3.2rem);
-            font-weight: 700; color: #2c7a4e; margin: 0.8rem 0 1.3rem;
+        .card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,0.12); }
+        body.dark .card { background: #1e262f; box-shadow: 0 10px 30px #0004; }
+        h2 { font-size: 1.9rem; color: #1d3b5c; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        body.dark h2 { color: #b3d6ff; }
+        .price-tag { font-size: 3rem; font-weight: 800; color: #1f8b6c; text-align: center; margin: 0.8rem 0; }
+        body.dark .price-tag { color: #5fdaa4; }
+        .meta { display: flex; gap: 18px; flex-wrap: wrap; color: #456; font-weight: 500; margin: 1rem 0; }
+        body.dark .meta { color: #aaccdd; }
+        .slider-container {
+            aspect-ratio: 16/9; overflow: hidden; border-radius: 20px;
+            background: #111; position: relative; margin: 1.4rem 0;
         }
-        .nutrition-guide ul { list-style-type: disc; padding-left: 1.8rem; margin: 1rem 0; }
-        .nutrition-guide li { margin-bottom: 0.6rem; }
-        .testimonial {
-            font-style: italic;
-            color: #555;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: #f0f8ff;
-            border-left: 5px solid #2c7a4e;
-            border-radius: 8px;
-        }
-        body.dark .testimonial { background: #1e2f44; color: #ccc; border-left-color: #66bb6a; }
-        .slider {
-            aspect-ratio: 4 / 3; overflow: hidden; border-radius: 14px;
-            margin: 1.3rem 0; background: #000; position: relative;
-        }
-        @media (min-aspect-ratio: 1/1) { .slider { aspect-ratio: 16 / 9; } }
-        .slides { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1); }
-        .slides img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+        .slider-track { display: flex; height: 100%; transition: transform 0.5s ease; }
+        .slider-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
         .slider-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 48px; height: 48px; background: rgba(0,0,0,0.55); color: white;
-            border: none; border-radius: 50%; font-size: 1.8rem; cursor: pointer;
-            opacity: 0.8; transition: all 0.2s; z-index: 10;
+            width: 50px; height: 50px; background: rgba(0,0,0,0.6);
+            color: white; border: none; border-radius: 50%; font-size: 2rem;
+            cursor: pointer; transition: background 0.2s; z-index: 10;
         }
-        .slider-arrow:hover, .slider-arrow:active { opacity: 1; background: rgba(0,0,0,0.8); }
-        .prev { left: 12px; } .next { right: 12px; }
-        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
-        .slider-dot {
-            width: 10px; height: 10px; background: rgba(255,255,255,0.5);
-            border-radius: 50%; cursor: pointer; transition: all 0.25s;
+        .slider-arrow:hover { background: rgba(0,0,0,0.9); }
+        .prev { left: 15px; } .next { right: 15px; }
+        .dots { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+        .dot { width: 12px; height: 12px; background: #ccc; border-radius: 50%; cursor: pointer; transition: all 0.25s; }
+        .dot.active { background: #1d3b5c; transform: scale(1.3); width: 16px; }
+        body.dark .dot { background: #555; } body.dark .dot.active { background: #7ad0aa; }
+        .testimonial {
+            background: #f0f8ff; border-radius: 16px; padding: 20px; margin: 1.5rem 0;
+            border-left: 5px solid #1d3b5c; font-style: italic; color: #444;
         }
-        .slider-dot.active { background: #2c7a4e; transform: scale(1.3); }
-
-        .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-form label { font-weight: 500; margin-bottom: 0.3rem; display: block; color: #2c4a7c; }
-        body.dark .contact-form label { color: #a8c0ff; }
-        .contact-form input, .contact-form textarea, .contact-form select {
-            width: 100%; padding: 14px 16px;
-            border: 1px solid #d0d8e5; border-radius: 12px;
-            font-size: 1rem; background: white;
+        body.dark .testimonial { background: #17222d; border-left-color: #6fa3e0; color: #ddd; }
+        .tips-list { list-style: none; margin-top: 1.2rem; }
+        .tips-list li { padding-left: 32px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="%231f8b6c"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>') left center no-repeat; background-size: 22px; margin-bottom: 0.8rem; }
+        body.dark .tips-list li { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="%235fdaa4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'); }
+        .form-card { background: #fff; border-radius: 24px; padding: 32px; margin: 32px 0; }
+        body.dark .form-card { background: #1f2a33; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .full { grid-column: 1 / -1; }
+        label { font-weight: 600; color: #1d3b5c; }
+        body.dark label { color: #b3d9ff; }
+        input, select, textarea {
+            padding: 14px 18px; border: 1px solid #d0dbea; border-radius: 12px;
+            font-size: 1rem; background: #fff;
         }
-        body.dark .contact-form input, body.dark .contact-form textarea, body.dark .contact-form select {
-            background: #2a2a2a; color: #eee; border-color: #555;
+        body.dark input, body.dark select, body.dark textarea {
+            background: #2e3b48; border-color: #4a5f78; color: #f0f4fa;
         }
-        .contact-form button {
-            width: 100%; padding: 16px; background: #2c4a7c; color: white;
-            border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600;
-            cursor: pointer; min-height: 54px; margin-top: 1rem;
+        button[type="submit"] {
+            grid-column: 1 / -1; padding: 18px; background: #1d3b5c; color: white;
+            border: none; border-radius: 12px; font-size: 1.15rem; font-weight: 700;
+            cursor: pointer; margin-top: 1.5rem; transition: background 0.2s;
         }
-        .contact-form button:active { background: #3a5a9c; }
-        .form-intro { font-size: 1.05rem; color: #444; margin-bottom: 1.5rem; }
-        body.dark .form-intro { color: #ccc; }
-
+        button[type="submit"]:hover { background: #163249; }
         .float-wrap {
-            position: fixed; right: 14px; bottom: 14px; z-index: 900;
-            display: flex; flex-direction: column; gap: 18px;
+            position: fixed; right: 20px; bottom: 20px; z-index: 900;
+            display: flex; flex-direction: column; gap: 16px;
         }
         .float-btn {
             width: 64px; height: 64px; border-radius: 50%;
+            background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.35);
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.38); transition: transform 0.15s;
+            transition: transform 0.15s;
         }
-        .float-btn:active { transform: scale(0.93); }
-        .whatsapp { background: #25d366; }
-        .telegram { background: #0088cc; }
-        .email { background: #d44638; }
+        .float-btn:active { transform: scale(0.92); }
         .float-btn img { width: 38px; }
+        .whatsapp { background: #25d366; } .telegram { background: #0088cc; } .email { background: #ea4335; }
         footer {
-            background: #1a2a4a; color: #c0d4ff;
-            text-align: center; padding: 2.2rem 1rem; margin-top: 50px; font-size: 0.92rem;
+            background: #0b1b2f; color: #b3cef0; text-align: center;
+            padding: 3rem 1rem; margin-top: 60px;
         }
-        footer a { color: #a8c0ff; text-decoration: none; }
-        @media (max-width: 600px) {
-            .container { padding: 0 14px; }
-            .card { padding: 18px; margin: 16px 0; }
-            .price { font-size: 2.7rem; }
-            .float-wrap { right: 12px; bottom: 12px; gap: 16px; }
-            .float-btn { width: 60px; height: 60px; }
-            .float-btn img { width: 34px; }
-            .slider-arrow { width: 44px; height: 44px; font-size: 1.5rem; }
-            .prev { left: 8px; } .next { right: 8px; }
+        footer a { color: #9bc0ff; text-decoration: none; }
+        @media (max-width: 700px) {
+            .tabs { flex-direction: column; align-items: center; }
+            .tab-btn { width: 90%; text-align: center; }
         }
     </style>
 </head>
 <body>
-<button class="dark-toggle" onclick="document.body.classList.toggle('dark')">Dark Mode</button>
+
+<button class="dark-toggle" onclick="document.body.classList.toggle('dark')">🌓 Dark/Light</button>
 
 <header>
-    <div class="container">
-        <img src="https://images.vexels.com/media/users/3/266217/raw/8047a986ac1cade599b35b3997ef0c70-dog-breeding-logo-template.jpg" alt="Elite Pups Logo" class="logo">
-        <h1>Elite Pups</h1>
-        <p style="font-size:1.1rem; opacity:0.95;">Responsible Sales • Loving Adoptions • Health Guarantee</p>
+    <div class="container logo-area">
+        <img class="logo" src="https://images.vexels.com/media/users/3/266217/raw/8047a986ac1cade599b35b3997ef0c70-dog-breeding-logo-template.jpg" alt="Elite Logo">
+        <div>
+            <h1>Elite Pups · Purrs · Wings</h1>
+            <p>Ethical Sales • Loving Adoptions • Dogs, Cats, Parrots & Small Pets</p>
+        </div>
     </div>
 </header>
 
 <div class="container">
     <div class="tabs">
-        <button class="tab-button active" onclick="openTab(event, 'sales')">Sales / Purchase</button>
-        <button class="tab-button" onclick="openTab(event, 'adoption')">Adoption / Rehoming</button>
+        <button class="tab-btn active" onclick="openTab('sales')">🐾 Sales / Purchase</button>
+        <button class="tab-btn" onclick="openTab('adoption')">❤️ Adoption / Rehoming</button>
     </div>
 
     <!-- SALES TAB -->
-    <div id="sales" class="tab-content active">
-        <p style="text-align:center; font-size:1.1rem; color:#555; margin:1.5rem 0;">
-            Browse puppies available for responsible purchase. All come vaccinated, vet-checked, with 1-year health guarantee.
+    <div id="sales" class="tab-panel active">
+        <p style="text-align:center; font-size:1.15rem; color:#555; margin-bottom:2rem;">
+            Quality puppies, kittens, birds & small pets • Vaccinated • Health guarantee • Vet-checked
         </p>
 
-        <!-- Labrador -->
+        <!-- Labrador Retriever Puppy -->
         <div class="card">
-            <h2>Labrador Retriever Puppy – For Sale</h2>
-            <div class="price">$1,200</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Friendly • Family-oriented • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales1">
-                <div class="slides" id="slides-sales1">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb" alt="Labrador 1">
-                    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b" alt="Labrador 2">
-                    <img src="https://images.unsplash.com/photo-1591160690555-5debfba289f0" alt="Labrador 3">
+            <h2>🐕 Labrador Retriever Puppy</h2>
+            <div class="price-tag">$1,350 – $1,800</div>
+            <div class="meta"><span>8–12 weeks old</span><span>Family-oriented & friendly</span><span>Vaccinated • Dewormed • 1-yr health guarantee</span><span>AKC eligible</span></div>
+            <p>The ultimate family dog — Labs are intelligent, gentle, eager to please, and great with children. Excellent for active households; love water play, fetch, and training. Medium-large size, short coat easy to groom.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s1">
+                    <img src="https://thumbs.dreamstime.com/b/cute-golden-retriever-puppy-runs-happily-green-grass-sunny-day-puppy-full-energy-joy-enjoying-402501797.jpg" alt="Lab puppy running happily">
+                    <img src="https://i2.pickpik.com/photos/864/173/270/labrador-puppy-meadow-dog-preview.jpg" alt="Yellow Lab in meadow">
+                    <img src="https://thumbs.dreamstime.com/b/yellow-lab-puppy-playing-20240606.jpg" alt="Yellow Lab with toy">
+                    <img src="https://thumbs.dreamstime.com/b/adorable-golden-retriever-puppy-running-grass-sunny-day-image-showcases-cute-towards-camera-grassy-field-398008342.jpg" alt="Lab running towards camera">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales1')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales1')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s1')">❮</button>
+                <button class="slider-arrow next" onclick="next('s1')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales1"></div>
+            <div class="dots" id="dots-s1"></div>
         </div>
 
-        <!-- French Bulldog -->
+        <!-- Golden Retriever Puppy -->
         <div class="card">
-            <h2>French Bulldog Puppy – For Sale</h2>
-            <div class="price">$2,500</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Charming • Low-energy • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales2">
-                <div class="slides" id="slides-sales2">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" alt="Frenchie 1">
-                    <img src="https://images.unsplash.com/photo-1612536056487-3d5c3d3e3d3d" alt="Frenchie 2">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800" alt="Frenchie 3">
+            <h2>🐕 Golden Retriever Puppy</h2>
+            <div class="price-tag">$1,650 – $2,200</div>
+            <div class="meta"><span>8–12 weeks</span><span>Gentle, loyal, patient</span><span>Full vaccinations • Microchipped • Health guarantee</span><span>Great therapy dogs</span></div>
+            <p>Known for their sweet temperament and beautiful golden coat. Perfect for families, first-time owners, or therapy work. High energy but trainable; love retrieving and outdoor adventures. Moderate grooming needed.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s2">
+                    <img src="data:image/jpeg;base64,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" alt="Golden running towards camera">
+                    <img src="data:image/jpeg;base64,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" alt="Golden in wildflowers">
+                    <img src="data:image/jpeg;base64,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" alt="Golden in park">
+                    <img src="data:image/jpeg;base64,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" alt="Joyful Golden playing">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales2')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales2')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s2')">❮</button>
+                <button class="slider-arrow next" onclick="next('s2')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales2"></div>
+            <div class="dots" id="dots-s2"></div>
         </div>
 
-        <!-- Golden Retriever -->
+        <!-- French Bulldog Puppy -->
         <div class="card">
-            <h2>Golden Retriever Puppy – For Sale</h2>
-            <div class="price">$1,500</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Gentle • Loyal • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales3">
-                <div class="slides" id="slides-sales3">
-                    <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36" alt="Golden 1">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb" alt="Golden 2">
-                    <img src="https://images.unsplash.com/photo-1605568427561-4b30266e3e0f" alt="Golden 3">
+            <h2>🐕 French Bulldog Puppy</h2>
+            <div class="price-tag">$2,900 – $4,500</div>
+            <div class="meta"><span>8–12 weeks</span><span>Charming, low-energy, affectionate</span><span>Microchipped • Vaccinated • Health tested</span><span>Brachycephalic care note</span></div>
+            <p>Adorable bat ears and compact size make them city/apartment favorites. Playful yet couch-potato friendly; minimal exercise needed. Great companions — love attention and are quiet barkers.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s3">
+                    <img src="https://thumbs.dreamstime.com/b/cute-dachshund-puppy-sitting-close-up-36438676.jpg" alt="Compact pup portrait">
+                    <img src="https://c8.alamy.com/comp/2A9FGP4/close-up-of-cute-miniature-dachshund-sausage-dog-in-long-grass-2A9FGP4.jpg" alt="Frenchie-style in grass">
+                    <img src="https://thumbs.dreamstime.com/b/dachshund-dog-closeup-9674284.jpg" alt="Charming face close-up">
+                    <img src="https://c8.alamy.com/comp/2JTHJ22/french-bulldog-dog-wearing-halloween-bat-headband-with-wings-and-ears-on-purple-background-2JTHJ22.jpg" alt="Bat-eared Frenchie theme">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales3')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales3')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s3')">❮</button>
+                <button class="slider-arrow next" onclick="next('s3')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales3"></div>
+            <div class="dots" id="dots-s3"></div>
         </div>
 
-        <!-- German Shepherd -->
+        <!-- German Shepherd Puppy -->
         <div class="card">
-            <h2>German Shepherd Puppy – For Sale</h2>
-            <div class="price">$1,800</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Intelligent • Protective • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales4">
-                <div class="slides" id="slides-sales4">
-                    <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95" alt="GSD 1">
-                    <img src="https://images.unsplash.com/photo-1617890686219-509e1a0596e2" alt="GSD 2">
-                    <img src="https://images.unsplash.com/photo-1567752881299-894d8e6d8e8f" alt="GSD 3">
+            <h2>🐕 German Shepherd Puppy</h2>
+            <div class="price-tag">$1,950 – $3,000</div>
+            <div class="meta"><span>8–12 weeks</span><span>Intelligent, protective, loyal</span><span>Vaccinated • Health guarantee • Working lines available</span></div>
+            <p>Highly trainable and versatile — excellent for families, protection, or service work. Strong bond with owners; need mental/physical stimulation. Double coat sheds seasonally.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s6">
+                    <img src="https://thumbs.dreamstime.com/b/portrait-german-shepherd-close-up-beautiful-intelligent-brown-eyes-dog-smart-looking-182877198.jpg" alt="Intelligent GSD eyes">
+                    <img src="https://pet-health-content-media.chewy.com/wp-content/uploads/2024/09/11180014/202105German-Shepherd-1358309706-scaled-1.jpg" alt="GSD puppy lying">
+                    <img src="https://thumbs.dreamstime.com/b/portrait-german-shepherd-close-up-beautiful-intelligent-brown-eyes-dog-smart-looking-182877198.jpg" alt="Smart GSD close">
+                    <img src="https://img.freepik.com/premium-photo/cute-puppy-sitting-grass-looking-camera-outdoors-generated-by-artificial-intelligence_188544-87321.jpg?semt=ais_hybrid&w=740&q=80" alt="GSD pup in grass">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales4')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales4')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s6')">❮</button>
+                <button class="slider-arrow next" onclick="next('s6')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales4"></div>
+            <div class="dots" id="dots-s6"></div>
         </div>
 
-        <!-- Poodle -->
+        <!-- Dachshund Puppy -->
         <div class="card">
-            <h2>Poodle Puppy – For Sale</h2>
-            <div class="price">$1,600</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Intelligent • Hypoallergenic • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales5">
-                <div class="slides" id="slides-sales5">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" alt="Poodle 1">
-                    <img src="https://images.unsplash.com/photo-1620421680010-0766ff230392" alt="Poodle 2">
-                    <img src="https://images.unsplash.com/photo-1617890686219-509e1a0596e2" alt="Poodle 3">
+            <h2>🐕 Dachshund Puppy</h2>
+            <div class="price-tag">$1,800 – $2,800</div>
+            <div class="meta"><span>8–12 weeks</span><span>Playful, bold, affectionate</span><span>Vaccinated • Long/smooth/wire coat options</span></div>
+            <p>The "wiener dog" — courageous personality in a small package. Great lap dogs with big-dog attitude; love digging and chasing. Prone to back issues — use ramps/stairs.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s12">
+                    <img src="https://thumbs.dreamstime.com/b/cute-dachshund-puppy-sitting-close-up-36438676.jpg" alt="Dachshund sitting cute">
+                    <img src="https://images.unsplash.com/photo-1596116082596-7a0da930b9aa?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Long-haired Dachshund">
+                    <img src="https://c8.alamy.com/comp/2A9FGP4/close-up-of-cute-miniature-dachshund-sausage-dog-in-long-grass-2A9FGP4.jpg" alt="Dachshund in grass">
+                    <img src="https://thumbs.dreamstime.com/b/dachshund-dog-closeup-9674284.jpg" alt="Dachshund face">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales5')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales5')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s12')">❮</button>
+                <button class="slider-arrow next" onclick="next('s12')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales5"></div>
+            <div class="dots" id="dots-s12"></div>
         </div>
 
-        <!-- Bulldog -->
+        <!-- Toy Poodle Puppy -->
         <div class="card">
-            <h2>Bulldog Puppy – For Sale</h2>
-            <div class="price">$2,200</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Calm • Loyal • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales6">
-                <div class="slides" id="slides-sales6">
-                    <img src="https://images.unsplash.com/photo-1567752881299-894d8e6d8e8f" alt="Bulldog 1">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" alt="Bulldog 2">
-                    <img src="https://images.unsplash.com/photo-1612536056487-3d5c3d3e3d3d" alt="Bulldog 3">
+            <h2>🐕 Toy Poodle Puppy</h2>
+            <div class="price-tag">$1,750 – $3,000</div>
+            <div class="meta"><span>8–12 weeks</span><span>Hypoallergenic, smart, playful</span><span>AKC registered • Health tested</span></div>
+            <p>Extremely intelligent and non-shedding — ideal for allergies. Energetic yet adaptable; excel in obedience and tricks. Regular grooming required for curly coat.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s7">
+                    <img src="https://thumbs.dreamstime.com/b/cute-poodle-puppy-smiling-close-up-portrait-brown-curly-fur-happiness-adorable-seen-its-eyes-makes-irresistible-looking-364797179.jpg" alt="Toy Poodle smiling close-up">
+                    <img src="https://thumbs.dreamstime.com/b/smiling-brown-poodle-curly-fur-bright-blue-background-happy-playful-dog-portrait-cute-fluffy-pet-tongue-out-studio-close-384806956.jpg" alt="Brown Poodle tongue out">
+                    <img src="https://images.pexels.com/photos/15875308/pexels-photo-15875308/free-photo-of-close-up-of-a-poodle-toy-puppy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Toy Poodle portrait">
+                    <img src="https://thumbs.dreamstime.com/b/adorable-toy-poodle-resting-sofa-soft-light-close-up-fluffy-apricot-relaxing-beige-dog-s-expressive-dark-eyes-412891359.jpg" alt="Apricot Toy Poodle resting">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales6')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales6')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s7')">❮</button>
+                <button class="slider-arrow next" onclick="next('s7')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales6"></div>
+            <div class="dots" id="dots-s7"></div>
         </div>
 
-        <!-- Beagle -->
+        <!-- Beagle Puppy -->
         <div class="card">
-            <h2>Beagle Puppy – For Sale</h2>
-            <div class="price">$1,300</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Curious • Friendly • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales7">
-                <div class="slides" id="slides-sales7">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb" alt="Beagle 1">
-                    <img src="https://images.unsplash.com/photo-1617890686219-509e1a0596e2" alt="Beagle 2">
-                    <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36" alt="Beagle 3">
+            <h2>🐕 Beagle Puppy</h2>
+            <div class="price-tag">$1,450 – $2,200</div>
+            <div class="meta"><span>8–12 weeks</span><span>Curious, merry, friendly</span><span>Vet-checked • Good with kids</span></div>
+            <p>Happy-go-lucky scent hounds with endless energy for play. Vocal and food-motivated; great family pets but need secure yards (love to follow noses).</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s9">
+                    <img src="https://thumbs.dreamstime.com/b/cute-beagle-puppy-grass-plays-paper-35189492.jpg" alt="Beagle puppy with paper">
+                    <img src="https://static.stacker.com/s3fs-public/shutterstock1541303156SZ84.jpg" alt="Beagle pup joyful">
+                    <img src="https://thumbs.dreamstime.com/b/cute-tricolor-beagle-dog-sitting-attentively-beige-sofa-surrounded-array-colorful-play-balls-depicting-cheerful-388543546.jpg" alt="Beagle with balls">
+                    <img src="https://www.rover.com/blog/wp-content/uploads/beagle-puppy.jpg" alt="Beagle running">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales7')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales7')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s9')">❮</button>
+                <button class="slider-arrow next" onclick="next('s9')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales7"></div>
+            <div class="dots" id="dots-s9"></div>
         </div>
 
-        <!-- Chihuahua -->
+        <!-- Maine Coon Kitten -->
         <div class="card">
-            <h2>Chihuahua Puppy – For Sale</h2>
-            <div class="price">$900</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Sassy • Portable • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales8">
-                <div class="slides" id="slides-sales8">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" alt="Chihuahua 1">
-                    <img src="https://images.unsplash.com/photo-1612536056487-3d5c3d3e3d3d" alt="Chihuahua 2">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb" alt="Chihuahua 3">
+            <h2>🐈 Maine Coon Kitten</h2>
+            <div class="price-tag">$2,800 – $4,000</div>
+            <div class="meta"><span>12–16 weeks</span><span>Large, majestic, dog-like</span><span>TICA registered • Health tested • Polydactyl options</span></div>
+            <p>Gentle giants of the cat world — friendly, sociable, and playful. Tufted ears, bushy tail; love water and fetch. Excellent for families; moderate grooming.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s4">
+                    <img src="https://thumbs.dreamstime.com/b/captivating-close-up-portrait-showcases-stunning-purebred-maine-coon-kitten-rich-tortoiseshell-coat-kitten-354451716.jpg" alt="Tortoiseshell Maine Coon kitten">
+                    <img src="https://i.chzbgr.com/original/36874757/h82684D39/of-maine-coon-cats-and-kittens-thumbnail-includes-two-pictures-of-maine-coon-cats-and-kittens" alt="Maine Coon kittens">
+                    <img src="https://i0.wp.com/sassykoonz.com/wp-content/uploads/2019/10/cute-white-kitten-on-a-gray-background.jpeg?fit=2048%2C1362&ssl=1" alt="White Maine Coon kitten">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales8')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales8')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s4')">❮</button>
+                <button class="slider-arrow next" onclick="next('s4')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales8"></div>
+            <div class="dots" id="dots-s4"></div>
         </div>
 
-        <!-- Siberian Husky -->
+        <!-- Persian Kitten -->
         <div class="card">
-            <h2>Siberian Husky Puppy – For Sale</h2>
-            <div class="price">$1,400</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Energetic • Striking eyes • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales9">
-                <div class="slides" id="slides-sales9">
-                    <img src="https://images.unsplash.com/photo-1605568427561-4b30266e3e0f" alt="Husky 1">
-                    <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95" alt="Husky 2">
-                    <img src="https://images.unsplash.com/photo-1617890686219-509e1a0596e2" alt="Husky 3">
+            <h2>🐈 Persian Kitten</h2>
+            <div class="price-tag">$2,600 – $3,800</div>
+            <div class="meta"><span>12–16 weeks</span><span>Calm, affectionate, luxurious</span><span>Health tested • Longhair daily grooming</span></div>
+            <p>Quiet, sweet lap cats with stunning flat faces and flowing coats. Prefer calm homes; excellent indoor companions. Daily brushing required to prevent mats.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s8">
+                    <img src="https://images.pexels.com/photos/29971951/pexels-photo-29971951.jpeg?cs=srgb&dl=pexels-suki-lee-110686949-29971951.jpg&fm=jpg" alt="Persian kitten blue eyes close-up">
+                    <img src="https://www.dailypaws.com/thmb/E06UM0DG9D62EgciDdOpyC89E-o=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ragdoll-owner-holding-cat-1019000674-2000-7a0ba8f30e404db09dbd7bbe090bb4dc.jpg" alt="Fluffy Persian-like cat">
+                    <img src="https://cf.ltkcdn.net/www/images/orig/350825-1600x1066-Blue-eyed-1392570836.jpg" alt="Blue-eyed Persian portrait">
+                    <img src="https://images.pexels.com/photos/29971951/pexels-photo-29971951.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Golden Persian fluffy">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales9')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales9')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s8')">❮</button>
+                <button class="slider-arrow next" onclick="next('s8')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales9"></div>
+            <div class="dots" id="dots-s8"></div>
         </div>
 
-        <!-- Australian Shepherd -->
+        <!-- Ragdoll Kitten -->
         <div class="card">
-            <h2>Australian Shepherd Puppy – For Sale</h2>
-            <div class="price">$1,700</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Active • Intelligent • Vaccinated • Vet-checked
-            </p>
-            <div class="slider" id="slider-sales10">
-                <div class="slides" id="slides-sales10">
-                    <img src="https://images.unsplash.com/photo-1567752881299-894d8e6d8e8f" alt="Aussie 1">
-                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" alt="Aussie 2">
-                    <img src="https://images.unsplash.com/photo-1612536056487-3d5c3d3e3d3d" alt="Aussie 3">
+            <h2>🐈 Ragdoll Kitten</h2>
+            <div class="price-tag">$3,200 – $4,500</div>
+            <div class="meta"><span>12–16 weeks</span><span>Gentle, affectionate, blue-eyed</span><span>TICA reg. • Health tested • Floppy when held</span></div>
+            <p>Docile and people-oriented — go limp when picked up (hence name). Soft semi-long coat, striking blue eyes; love following owners. Low activity, great for apartments.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s13">
+                    <img src="https://thumbs.dreamstime.com/b/adorable-ragdoll-kitten-relaxing-soft-blanket-white-fluffy-blue-eyes-resting-turquoise-enjoying-moment-peace-398474206.jpg" alt="Ragdoll kitten on blanket">
+                    <img src="https://media.gettyimages.com/id/1387641909/photo/ragdoll-kitten-sitting-relaxed-in-wool-bed.jpg?s=1024x1024&w=gi&k=20&c=p_Ij9ANXpCe5nacxNMxU6iuq0OvoVXwzAd9BdgCc_yU=" alt="Ragdoll in wool bed">
+                    <img src="https://thumbs.dreamstime.com/z/fluffy-ragdoll-cat-striking-blue-eyes-relaxing-pastel-background-sweet-elegant-portrait-captivating-image-367746294.jpg" alt="Ragdoll blue eyes portrait">
+                    <img src="https://www.dailypaws.com/thmb/E06UM0DG9D62EgciDdOpyC89E-o=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ragdoll-owner-holding-cat-1019000674-2000-7a0ba8f30e404db09dbd7bbe090bb4dc.jpg" alt="Ragdoll held gently">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('sales10')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('sales10')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('s13')">❮</button>
+                <button class="slider-arrow next" onclick="next('s13')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-sales10"></div>
+            <div class="dots" id="dots-s13"></div>
         </div>
 
-        <!-- Puppy Nutrition Guide -->
-        <div class="card nutrition-guide">
-            <h2>Puppy Nutrition Guide</h2>
-            <p>Proper nutrition is essential for healthy growth. Follow these guidelines (consult your vet for personalized advice):</p>
-            <ul>
-                <li><strong>Age 0–8 weeks</strong>: Mother's milk or high-quality puppy milk replacer. Transition to puppy food around 3–4 weeks.</li>
-                <li><strong>8 weeks – 6 months</strong>: Feed high-quality large-breed or all-breed puppy formula 3–4 times per day. Look for AAFCO-approved "growth" stage food.</li>
-                <li><strong>6–12 months</strong>: Reduce to 2–3 meals per day. Switch to adult food gradually between 9–18 months depending on breed size.</li>
-                <li><strong>Key nutrients</strong>: High protein (25–30%), DHA for brain development, calcium/phosphorus balance for bones, omega-3/6 for coat & skin.</li>
-                <li><strong>Feeding tips</strong>: Always provide fresh water. Avoid table scraps, chocolate, grapes, onions, xylitol. Do not overfeed – use feeding chart on food bag.</li>
-                <li><strong>Supplements</strong>: Usually not needed if using quality puppy food. Glucosamine/chondroitin may help large breeds after vet approval.</li>
+        <!-- African Grey Parrot -->
+        <div class="card">
+            <h2>🦜 African Grey Parrot</h2>
+            <div class="price-tag">$3,200 – $5,000</div>
+            <div class="meta"><span>Hand-raised • Talking ability</span><span>CITES compliant • Vet-checked</span><span>Lifespan 40–60+ years</span></div>
+            <p>One of the most intelligent birds — excellent mimics and problem-solvers. Need daily interaction, toys, and mental stimulation. Bond strongly with owners.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s5">
+                    <img src="https://www.marylandzoo.org/wp-content/uploads/2017/10/african_grey_web-1024x683.jpg" alt="African Grey on perch">
+                    <img src="https://hari.ca/uk/wp-content/uploads/2023/03/img-AfricanGrey.jpg" alt="African Grey close-up">
+                    <img src="https://thumbs.dreamstime.com/b/close-up-intelligent-african-grey-parrot-perched-branch-looking-curiously-african-grey-parrot-striking-grey-408228604.jpg" alt="Intelligent African Grey">
+                    <img src="https://www.marylandzoo.org/wp-content/uploads/2017/10/african_grey_web-1024x683.jpg" alt="Grey parrot profile">
+                </div>
+                <button class="slider-arrow prev" onclick="prev('s5')">❮</button>
+                <button class="slider-arrow next" onclick="next('s5')">❯</button>
+            </div>
+            <div class="dots" id="dots-s5"></div>
+        </div>
+
+        <!-- Budgerigar (Budgie) -->
+        <div class="card">
+            <h2>🦜 Budgerigar (Budgie)</h2>
+            <div class="price-tag">$90 – $250</div>
+            <div class="meta"><span>Hand-tamed • Color varieties</span><span>Easy care • Chatty</span><span>Pair or solo</span></div>
+            <p>Small, colorful, and sociable parakeets. Can learn words/phrases with training. Affordable, fun starter bird; need large cage and toys for flight.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s10">
+                    <img src="https://cdn.omlet.com/images/originals/budgie_colour_varieties.jpg" alt="Colorful Budgies lineup">
+                    <img src="https://cdn.omlet.com/images/originals/budgie_colours.jpg" alt="Budgies on branch">
+                    <img src="https://thumbs.dreamstime.com/b/colorful-budgies-perched-branch-nature-group-colorful-budgies-perching-branch-nature-showcasing-their-333927639.jpg" alt="Rainbow Budgies">
+                    <img src="https://cdn.omlet.com/images/originals/budgie_colour_varieties.jpg" alt="Variety Budgies">
+                </div>
+                <button class="slider-arrow prev" onclick="prev('s10')">❮</button>
+                <button class="slider-arrow next" onclick="next('s10')">❯</button>
+            </div>
+            <div class="dots" id="dots-s10"></div>
+        </div>
+
+        <!-- Mini Lop Rabbit -->
+        <div class="card">
+            <h2>🐰 Mini Lop Rabbit</h2>
+            <div class="price-tag">$130 – $300</div>
+            <div class="meta"><span>8–12 weeks</span><span>Adorable lop ears • Gentle</span><span>Well-socialized • Litter trainable</span></div>
+            <p>Floppy-eared charmers — calm, cuddly, and playful. Great for apartments; need spacious enclosure, hay, and chew toys. Bond well with gentle handling.</p>
+            <div class="slider-container">
+                <div class="slider-track" id="s11">
+                    <img src="https://gizmodo.com/app/uploads/2019/10/atexjfydgvkmmfxah05e.jpg" alt="Mini Lop with carrot">
+                    <img src="https://articles.hepper.com/wp-content/uploads/2023/05/mini-lop-rabbit_FiledIMAGE_Shutterstock.jpg" alt="Fluffy Mini Lop">
+                    <img src="https://a-z-animals.com/media/2021/08/frenchlop.jpg" alt="Lop-eared bunny portrait">
+                    <img src="https://images.newscientist.com/wp-content/uploads/2019/06/19174253/k2wedt.jpg?crop=4:3,smart&width=1200&height=900&upscale=true" alt="Cute lop bunny">
+                </div>
+                <button class="slider-arrow prev" onclick="prev('s11')">❮</button>
+                <button class="slider-arrow next" onclick="next('s11')">❯</button>
+            </div>
+            <div class="dots" id="dots-s11"></div>
+        </div>
+
+        <div class="card">
+            <h2>🐾 New Owner Tips (All Pets)</h2>
+            <ul class="tips-list">
+                <li><strong>Dogs:</strong> Crate training, positive reinforcement, daily walks.</li>
+                <li><strong>Cats:</strong> Scratching posts, playtime, slow introductions.</li>
+                <li><strong>Parrots:</strong> Daily interaction, foraging toys, safe environment.</li>
+                <li><strong>Small pets:</strong> Unlimited hay (rabbits/guinea pigs), gentle handling, spacious enclosure.</li>
+                <li>Always: Fresh water, quality food, regular vet care.</li>
             </ul>
-            <p style="margin-top:1rem; font-size:0.95rem; color:#666;">
-                Feed measured amounts — obesity is common in puppies. Transition foods slowly over 7–10 days.
-            </p>
-        </div>
-
-        <!-- Testimonials -->
-        <div class="card">
-            <h2>What Our Families Say</h2>
-            <div class="testimonial">
-                "Adopting our Labrador from Elite Pups was the best decision! Healthy, happy, and already part of the family." — Sarah M., Nairobi
-            </div>
-            <div class="testimonial">
-                "The French Bulldog puppy we got is perfect — great support from the team throughout the process." — James K.
-            </div>
-            <div class="testimonial">
-                "Our Golden Retriever is gentle and loving. Highly recommend Elite Pups!" — Aisha L.
-            </div>
         </div>
 
         <div class="card">
-            <h2>Ready to Purchase?</h2>
-            <p style="text-align:center;">Contact us via WhatsApp, Telegram, or email to check availability, discuss payment, and arrange pickup/delivery.</p>
+            <h2>💬 Happy Families</h2>
+            <div class="testimonial">"Our Golden Retriever is amazing — healthy and so loving. Thank you Elite!" — Aisha, New York</div>
+            <div class="testimonial">"The Maine Coon kitten is majestic. Great support throughout." — James, Connecticut</div>
+            <div class="testimonial">"Adopted our talking African Grey — smart and funny!" — Sarah, New Jersey</div>
         </div>
     </div>
 
     <!-- ADOPTION TAB -->
-    <div id="adoption" class="tab-content">
-        <p style="text-align:center; font-size:1.1rem; color:#555; margin:1.5rem 0;">
-            Looking to adopt? These puppies are available for loving homes. Fill out the inquiry form below.
+    <div id="adoption" class="tab-panel">
+        <p style="text-align:center; font-size:1.15rem; color:#555; margin-bottom:2rem;">
+            Loving homes wanted • Many pets ready • Adoption fee covers vetting, microchip & starter items
         </p>
 
-        <!-- Adoption breed cards (same images, adapted text) -->
-        <!-- Example for Labrador – repeat pattern for all 10 -->
         <div class="card">
-            <h2>Labrador Retriever Puppy – Available for Adoption</h2>
-            <div class="price">$1,200 Adoption Fee</div>
-            <p style="text-align:center; font-size:1.05rem; color:#555; margin:0.7rem 0 1.3rem;">
-                Friendly • Family-oriented • Vaccinated • Vet-checked • Health guarantee
-            </p>
-            <div class="slider" id="slider-adopt1">
-                <div class="slides" id="slides-adopt1">
-                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb" alt="Labrador 1">
-                    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b" alt="Labrador 2">
-                    <img src="https://images.unsplash.com/photo-1591160690555-5debfba289f0" alt="Labrador 3">
+            <h2>🐕 Labrador Retriever (2 yr) – Adoption</h2>
+            <div class="price-tag">Donation $380</div>
+            <div class="meta"><span>Neutered</span><span>Vaccinated</span><span>Chipped</span></div>
+            <div class="slider-container">
+                <div class="slider-track" id="a1">
+                    <img src="https://thumbs.dreamstime.com/b/cute-golden-retriever-puppy-runs-happily-green-grass-sunny-day-puppy-full-energy-joy-enjoying-402501797.jpg" alt="Adult Lab running">
+                    <img src="https://i2.pickpik.com/photos/864/173/270/labrador-puppy-meadow-dog-preview.jpg" alt="Mature Lab gentle">
                 </div>
-                <button class="slider-arrow prev" onclick="prevSlide('adopt1')">❮</button>
-                <button class="slider-arrow next" onclick="nextSlide('adopt1')">❯</button>
+                <button class="slider-arrow prev" onclick="prev('a1')">❮</button>
+                <button class="slider-arrow next" onclick="next('a1')">❯</button>
             </div>
-            <div class="slider-dots" id="dots-adopt1"></div>
+            <div class="dots" id="dots-a1"></div>
         </div>
 
-        <!-- ... Repeat the same structure for breeds 2–10 with adopt2 to adopt10 IDs ... -->
-
-        <!-- Nutrition Guide (same as sales tab) -->
-        <div class="card nutrition-guide">
-            <h2>Puppy Nutrition Guide</h2>
-            <!-- Same content as in sales tab -->
-            <p>Proper nutrition is essential for healthy growth. Follow these guidelines (consult your vet for personalized advice):</p>
-            <ul>
-                <li><strong>Age 0–8 weeks</strong>: Mother's milk or high-quality puppy milk replacer...</li>
-                <!-- ... full list ... -->
-            </ul>
-            <p style="margin-top:1rem; font-size:0.95rem; color:#666;">
-                Feed measured amounts — obesity is common in puppies. Transition foods slowly over 7–10 days.
-            </p>
-        </div>
-
-        <!-- Detailed Contact / Adoption Inquiry Form -->
-        <div class="card contact-form">
-            <h2>Adoption / Purchase Inquiry Form</h2>
-            <p class="form-intro">Please fill out as much detail as possible so we can help match you with the perfect puppy and guide you through next steps.</p>
-            
-            <form action="mailto:contact@elitepupsadoption.com" method="post" enctype="text/plain">
-                <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" placeholder="Your full name" required>
-
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-
-                <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" placeholder="+254 7XX XXX XXX" required>
-
-                <label for="address">City / Area / County *</label>
-                <input type="text" id="address" name="address" placeholder="e.g., Westlands, Nairobi" required>
-
-                <label for="interest">I'm interested in *</label>
-                <select id="interest" name="interest" required>
-                    <option value="">Select...</option>
-                    <option value="purchase">Purchasing a puppy</option>
-                    <option value="adoption">Adopting a puppy</option>
-                    <option value="both">Either purchase or adoption</option>
-                </select>
-
-                <label for="preferences">Preferred Breed(s) / Puppy Traits</label>
-                <textarea id="preferences" name="preferences" rows="3" placeholder="e.g., Labrador or Golden, good with kids, medium energy..."></textarea>
-
-                <label for="household">Household Info</label>
-                <textarea id="household" name="household" rows="4" placeholder="Adults? Children (ages)? Other pets? House / apartment? Yard?"></textarea>
-
-                <label for="experience">Previous Dog Experience</label>
-                <textarea id="experience" name="experience" rows="3" placeholder="Have you owned dogs before? Breeds? How long?"></textarea>
-
-                <label for="timeline">When are you looking to bring a puppy home?</label>
-                <input type="text" id="timeline" name="timeline" placeholder="e.g., Next 2 weeks, within a month, flexible">
-
-                <label for="message">Questions / Comments</label>
-                <textarea id="message" name="message" rows="5" placeholder="Any specific questions about health, transport, nutrition, training...?"></textarea>
-
-                <button type="submit">Send Inquiry</button>
+        <div class="form-card">
+            <h2>📩 Adoption / Purchase Inquiry</h2>
+            <form action="mailto:contact@elitepupsandpaws.com" method="post" enctype="text/plain">
+                <div class="form-grid">
+                    <div class="form-group"><label>Full Name *</label><input type="text" name="name" required placeholder="Your name"></div>
+                    <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com"></div>
+                    <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required placeholder="+254 ..."></div>
+                    <div class="form-group"><label>City / Area *</label><input type="text" name="location" required placeholder="e.g. Nairobi"></div>
+                    <div class="form-group"><label>Interested in *</label>
+                        <select name="interest" required>
+                            <option value="">Select...</option>
+                            <option>Purchase</option><option>Adoption</option><option>Both</option>
+                        </select>
+                    </div>
+                    <div class="form-group full"><label>Preferred Pet / Breed</label><textarea name="preferences" rows="3" placeholder="e.g. Labrador, good with kids..."></textarea></div>
+                    <div class="form-group full"><label>Household & Experience</label><textarea name="household" rows="4" placeholder="Adults? Kids? Other pets? House/apartment? Previous experience?"></textarea></div>
+                    <div class="form-group full"><label>Timeline & Questions</label><textarea name="message" rows="5" placeholder="When? Any questions about health, transport, care...?"></textarea></div>
+                    <button type="submit">Send Message</button>
+                </div>
             </form>
+        </div>
+
+        <div class="card">
+            <h2>❤️ Adoption Stories</h2>
+            <div class="testimonial">"Our adopted Beagle settled in immediately — thank you for the perfect match!" — Priya</div>
+            <div class="testimonial">"The guinea pig pair we adopted are so happy and social." — Liam</div>
         </div>
     </div>
 </div>
 
 <div class="float-wrap">
-    <a class="float-btn whatsapp" href="https://wa.me/18648513830" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-    </a>
-    <a class="float-btn telegram" href="https://t.me/Poppytradehub" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-    </a>
-    <a class="float-btn email" href="mailto:contact@elitepupsadoption.com">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email">
-    </a>
+    <a class="float-btn whatsapp" href="https://wa.me/18648513830" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+    <a class="float-btn telegram" href="https://t.me/Poppytradehub" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+    <a class="float-btn email" href="mailto:contact@elitepupsandpaws.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email"></a>
 </div>
 
 <footer>
-    <p>Elite Pups • Responsible Placement • Every Pup Deserves a Loving Home</p>
-    <p style="margin-top:0.9rem;">
-        WhatsApp: <a href="https://wa.me/18648513830">+1 (864) 851-3830</a><br>
-        Telegram: <a href="https://t.me/Poppytradehub">@Poppytradehub</a><br>
-        Email: <a href="mailto:contact@elitepupsadoption.com">contact@elitepupsadoption.com</a>
+    <p>Elite Pups · Purrs · Wings – Ethical • Responsible • Lifetime Support</p>
+    <p style="margin:1.2rem 0;">
+        WhatsApp: <a href="https://wa.me/18648513830">+1 (864) 851-3830</a> •
+        Telegram: <a href="https://t.me/Poppytradehub">@Poppytradehub</a> •
+        Email: <a href="mailto:contact@elitepupsandpaws.com">contact@elitepupsandpaws.com</a>
     </p>
+    <p>Visits by appointment • Health guarantee on all pets</p>
 </footer>
 
 <script>
-// Tab switching
-function openTab(evt, tabName) {
-    document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
-    document.querySelectorAll(".tab-button").forEach(el => el.classList.remove("active"));
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
+function openTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    event.currentTarget.classList.add('active');
 }
 
-// Slider logic
-class Slider {
-    constructor(prefix, id) {
-        this.prefix = prefix;
-        this.id = id;
-        this.index = 0;
-        this.container = document.getElementById(`slides-${prefix}${id}`);
-        this.dotsContainer = document.getElementById(`dots-${prefix}${id}`);
-        this.total = this.container ? this.container.children.length : 0;
-        this.autoInterval = null;
-        if (this.total > 0) {
-            this.createDots();
-            this.goTo(0);
-            this.startAutoPlay();
-            const sliderElem = document.getElementById(`slider-${prefix}${id}`);
-            if (sliderElem) {
-                sliderElem.addEventListener("mouseenter", () => this.stopAutoPlay());
-                sliderElem.addEventListener("mouseleave", () => this.startAutoPlay());
-            }
+const sliders = {};
+function initSlider(id) {
+    if (sliders[id]) return;
+    const track = document.getElementById(id);
+    if (!track) return;
+    const total = track.children.length;
+    let idx = 0;
+    const dots = document.getElementById('dots-' + id);
+    if (dots) {
+        for (let i = 0; i < total; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'dot' + (i===0 ? ' active' : '');
+            dot.onclick = () => { idx = i; move(); };
+            dots.appendChild(dot);
         }
     }
-    createDots() {
-        this.dotsContainer.innerHTML = "";
-        for (let i = 0; i < this.total; i++) {
-            const dot = document.createElement("span");
-            dot.classList.add("slider-dot");
-            dot.onclick = () => { this.stopAutoPlay(); this.goTo(i); };
-            this.dotsContainer.appendChild(dot);
-        }
-        this.updateDots();
+    function move() {
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        if (dots) Array.from(dots.children).forEach((d,j) => d.classList.toggle('active', j===idx));
     }
-    updateDots() {
-        const dots = this.dotsContainer.querySelectorAll(".slider-dot");
-        dots.forEach((dot, i) => dot.classList.toggle("active", i === this.index));
-    }
-    goTo(index) {
-        this.index = (index + this.total) % this.total;
-        this.container.style.transform = `translateX(-${this.index * 100}%)`;
-        this.updateDots();
-    }
-    next() { this.goTo(this.index + 1); }
-    prev() { this.goTo(this.index - 1); }
-    startAutoPlay() { this.autoInterval = setInterval(() => this.next(), 5000); }
-    stopAutoPlay() { if (this.autoInterval) clearInterval(this.autoInterval); }
+    sliders[id] = { next: () => { idx = (idx + 1) % total; move(); }, prev: () => { idx = (idx - 1 + total) % total; move(); } };
 }
+function next(id) { initSlider(id); sliders[id].next(); }
+function prev(id) { initSlider(id); sliders[id].prev(); }
 
-// Initialize all sliders (10 breeds × 2 tabs = 20 sliders)
-const sliders = [];
-window.addEventListener("load", () => {
-    for (let i = 1; i <= 10; i++) {
-        sliders.push(new Slider('sales', i));
-        sliders.push(new Slider('adopt', i));
-    }
+window.addEventListener('load', () => {
+    document.querySelectorAll('.slider-track').forEach(t => initSlider(t.id));
 });
-
-function nextSlide(sliderId) {
-    const slider = sliders.find(s => s.prefix + s.id === sliderId);
-    if (slider) { slider.stopAutoPlay(); slider.next(); }
-}
-function prevSlide(sliderId) {
-    const slider = sliders.find(s => s.prefix + s.id === sliderId);
-    if (slider) { slider.stopAutoPlay(); slider.prev(); }
-}
 </script>
 </body>
 </html>
